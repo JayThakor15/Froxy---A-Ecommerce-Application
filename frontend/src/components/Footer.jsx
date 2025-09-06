@@ -22,9 +22,12 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">S</span>
-              </div>
+              <img
+                src="/FroxyLogo.png"
+                alt="Froxy Logo"
+                className="w-8 h-8 rounded-lg object-contain bg-white p-1"
+                style={{ background: "white" }}
+              />
               <span className="text-xl font-bold">Froxy</span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">

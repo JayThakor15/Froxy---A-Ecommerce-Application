@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Save, X } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { useAdmin } from '../context/AdminContext';
-import axios from 'axios';
-import { apiUrl } from '../utils/api';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { ArrowLeft, Save, X } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import { useAdmin } from "../context/AdminContext";
+import axios from "axios";
+import { apiUrl } from "../utils/api";
 
 const categories = [
-  'Electronics',
-  'Clothing',
-  'Books',
-  'Home & Garden',
-  'Sports',
-  'Beauty',
-  'Toys',
-  'Automotive'
+  "Electronics",
+  "Clothing",
+  "Books",
+  "Home & Garden",
+  "Sports",
+  "Beauty",
+  "Toys",
+  "Automotive",
 ];
 
 const AdminProductForm = () => {
@@ -25,14 +25,14 @@ const AdminProductForm = () => {
   const isEdit = Boolean(id);
 
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    category: '',
-    image: '',
-    stock: '',
-    rating: '',
-    numReviews: ''
+    name: "",
+    description: "",
+    price: "",
+    category: "",
+    image: "",
+    stock: "",
+    rating: "",
+    numReviews: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -44,14 +44,14 @@ const AdminProductForm = () => {
   }, [id, isEdit]);
 
   useEffect(() => {
-    if (!user || user.role !== 'admin') {
-      navigate('/');
+    if (!user || user.role !== "admin") {
+      navigate("/");
     }
   }, [user, navigate]);
 
   const fetchProduct = async () => {
     try {
-  const response = await axios.get(apiUrl(`/api/products/${id}`));
+      const response = await axios.get(apiUrl(`/api/products/${id}`));
       const product = response.data;
       setFormData({
         name: product.name,
@@ -61,26 +61,26 @@ const AdminProductForm = () => {
         image: product.image,
         stock: product.stock.toString(),
         rating: product.rating.toString(),
-        numReviews: product.numReviews.toString()
+        numReviews: product.numReviews.toString(),
       });
     } catch (error) {
-      console.error('Error fetching product:', error);
-      navigate('/admin');
+      console.error("Error fetching product:", error);
+      navigate("/admin");
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: "",
       }));
     }
   };
@@ -89,35 +89,51 @@ const AdminProductForm = () => {
     const newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Product name is required';
+      newErrors.name = "Product name is required";
     }
 
     if (!formData.description.trim()) {
-      newErrors.description = 'Description is required';
+      newErrors.description = "Description is required";
     }
 
-    if (!formData.price || isNaN(formData.price) || parseFloat(formData.price) < 0) {
-      newErrors.price = 'Valid price is required';
+    if (
+      !formData.price ||
+      isNaN(formData.price) ||
+      parseFloat(formData.price) < 0
+    ) {
+      newErrors.price = "Valid price is required";
     }
 
     if (!formData.category) {
-      newErrors.category = 'Category is required';
+      newErrors.category = "Category is required";
     }
 
     if (!formData.image.trim()) {
-      newErrors.image = 'Image URL is required';
+      newErrors.image = "Image URL is required";
     }
 
-    if (!formData.stock || isNaN(formData.stock) || parseInt(formData.stock) < 0) {
-      newErrors.stock = 'Valid stock quantity is required';
+    if (
+      !formData.stock ||
+      isNaN(formData.stock) ||
+      parseInt(formData.stock) < 0
+    ) {
+      newErrors.stock = "Valid stock quantity is required";
     }
 
-    if (formData.rating && (isNaN(formData.rating) || parseFloat(formData.rating) < 0 || parseFloat(formData.rating) > 5)) {
-      newErrors.rating = 'Rating must be between 0 and 5';
+    if (
+      formData.rating &&
+      (isNaN(formData.rating) ||
+        parseFloat(formData.rating) < 0 ||
+        parseFloat(formData.rating) > 5)
+    ) {
+      newErrors.rating = "Rating must be between 0 and 5";
     }
 
-    if (formData.numReviews && (isNaN(formData.numReviews) || parseInt(formData.numReviews) < 0)) {
-      newErrors.numReviews = 'Number of reviews must be a positive integer';
+    if (
+      formData.numReviews &&
+      (isNaN(formData.numReviews) || parseInt(formData.numReviews) < 0)
+    ) {
+      newErrors.numReviews = "Number of reviews must be a positive integer";
     }
 
     setErrors(newErrors);
@@ -126,7 +142,7 @@ const AdminProductForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -139,7 +155,7 @@ const AdminProductForm = () => {
       image: formData.image.trim(),
       stock: parseInt(formData.stock),
       rating: formData.rating ? parseFloat(formData.rating) : 0,
-      numReviews: formData.numReviews ? parseInt(formData.numReviews) : 0
+      numReviews: formData.numReviews ? parseInt(formData.numReviews) : 0,
     };
 
     let result;
@@ -150,11 +166,11 @@ const AdminProductForm = () => {
     }
 
     if (result.success) {
-      navigate('/admin');
+      navigate("/admin");
     }
   };
 
-  if (!user || user.role !== 'admin') {
+  if (!user || user.role !== "admin") {
     return null;
   }
 
@@ -171,10 +187,12 @@ const AdminProductForm = () => {
             Back to Admin Dashboard
           </Link>
           <h1 className="text-3xl font-bold text-gray-900">
-            {isEdit ? 'Edit Product' : 'Add New Product'}
+            {isEdit ? "Edit Product" : "Add New Product"}
           </h1>
           <p className="text-gray-600 mt-2">
-            {isEdit ? 'Update product information' : 'Create a new product for your store'}
+            {isEdit
+              ? "Update product information"
+              : "Create a new product for your store"}
           </p>
         </div>
 
@@ -184,7 +202,10 @@ const AdminProductForm = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Product Name */}
               <div className="md:col-span-2">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Product Name *
                 </label>
                 <input
@@ -193,7 +214,9 @@ const AdminProductForm = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className={`input-field ${errors.name ? 'border-red-500' : ''}`}
+                  className={`input-field ${
+                    errors.name ? "border-red-500" : ""
+                  }`}
                   placeholder="Enter product name"
                 />
                 {errors.name && (
@@ -203,7 +226,10 @@ const AdminProductForm = () => {
 
               {/* Category */}
               <div>
-                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="category"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Category *
                 </label>
                 <select
@@ -211,7 +237,9 @@ const AdminProductForm = () => {
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  className={`input-field ${errors.category ? 'border-red-500' : ''}`}
+                  className={`input-field ${
+                    errors.category ? "border-red-500" : ""
+                  }`}
                 >
                   <option value="">Select a category</option>
                   {categories.map((category) => (
@@ -227,7 +255,10 @@ const AdminProductForm = () => {
 
               {/* Price */}
               <div>
-                <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="price"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Price ($) *
                 </label>
                 <input
@@ -238,7 +269,9 @@ const AdminProductForm = () => {
                   onChange={handleChange}
                   step="0.01"
                   min="0"
-                  className={`input-field ${errors.price ? 'border-red-500' : ''}`}
+                  className={`input-field ${
+                    errors.price ? "border-red-500" : ""
+                  }`}
                   placeholder="0.00"
                 />
                 {errors.price && (
@@ -248,7 +281,10 @@ const AdminProductForm = () => {
 
               {/* Stock */}
               <div>
-                <label htmlFor="stock" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="stock"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Stock Quantity *
                 </label>
                 <input
@@ -258,7 +294,9 @@ const AdminProductForm = () => {
                   value={formData.stock}
                   onChange={handleChange}
                   min="0"
-                  className={`input-field ${errors.stock ? 'border-red-500' : ''}`}
+                  className={`input-field ${
+                    errors.stock ? "border-red-500" : ""
+                  }`}
                   placeholder="0"
                 />
                 {errors.stock && (
@@ -268,7 +306,10 @@ const AdminProductForm = () => {
 
               {/* Rating */}
               <div>
-                <label htmlFor="rating" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="rating"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Rating (0-5)
                 </label>
                 <input
@@ -280,7 +321,9 @@ const AdminProductForm = () => {
                   step="0.1"
                   min="0"
                   max="5"
-                  className={`input-field ${errors.rating ? 'border-red-500' : ''}`}
+                  className={`input-field ${
+                    errors.rating ? "border-red-500" : ""
+                  }`}
                   placeholder="0.0"
                 />
                 {errors.rating && (
@@ -290,7 +333,10 @@ const AdminProductForm = () => {
 
               {/* Number of Reviews */}
               <div>
-                <label htmlFor="numReviews" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="numReviews"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Number of Reviews
                 </label>
                 <input
@@ -300,17 +346,24 @@ const AdminProductForm = () => {
                   value={formData.numReviews}
                   onChange={handleChange}
                   min="0"
-                  className={`input-field ${errors.numReviews ? 'border-red-500' : ''}`}
+                  className={`input-field ${
+                    errors.numReviews ? "border-red-500" : ""
+                  }`}
                   placeholder="0"
                 />
                 {errors.numReviews && (
-                  <p className="mt-1 text-sm text-red-600">{errors.numReviews}</p>
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.numReviews}
+                  </p>
                 )}
               </div>
 
               {/* Image URL */}
               <div className="md:col-span-2">
-                <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="image"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Image URL *
                 </label>
                 <input
@@ -319,7 +372,9 @@ const AdminProductForm = () => {
                   name="image"
                   value={formData.image}
                   onChange={handleChange}
-                  className={`input-field ${errors.image ? 'border-red-500' : ''}`}
+                  className={`input-field ${
+                    errors.image ? "border-red-500" : ""
+                  }`}
                   placeholder="https://example.com/image.jpg"
                 />
                 {errors.image && (
@@ -332,7 +387,7 @@ const AdminProductForm = () => {
                       alt="Preview"
                       className="w-32 h-32 object-cover rounded-lg border border-gray-200"
                       onError={(e) => {
-                        e.target.style.display = 'none';
+                        e.target.style.display = "none";
                       }}
                     />
                   </div>
@@ -341,7 +396,10 @@ const AdminProductForm = () => {
 
               {/* Description */}
               <div className="md:col-span-2">
-                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Description *
                 </label>
                 <textarea
@@ -350,11 +408,15 @@ const AdminProductForm = () => {
                   value={formData.description}
                   onChange={handleChange}
                   rows={4}
-                  className={`input-field ${errors.description ? 'border-red-500' : ''}`}
+                  className={`input-field ${
+                    errors.description ? "border-red-500" : ""
+                  }`}
                   placeholder="Enter product description"
                 />
                 {errors.description && (
-                  <p className="mt-1 text-sm text-red-600">{errors.description}</p>
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.description}
+                  </p>
                 )}
               </div>
             </div>
@@ -375,12 +437,12 @@ const AdminProductForm = () => {
                 {loading ? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    {isEdit ? 'Updating...' : 'Creating...'}
+                    {isEdit ? "Updating..." : "Creating..."}
                   </>
                 ) : (
                   <>
                     <Save className="h-4 w-4 mr-2" />
-                    {isEdit ? 'Update Product' : 'Create Product'}
+                    {isEdit ? "Update Product" : "Create Product"}
                   </>
                 )}
               </button>
