@@ -12,6 +12,7 @@ import axios from "axios";
 import { useCart } from "../context/CartContext";
 import ProductCard from "../components/ProductCard";
 import toast from "react-hot-toast";
+import { apiUrl } from "../utils/api";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -29,15 +30,17 @@ const ProductDetail = () => {
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`/api/products/${id}`);
+      const response = await axios.get(apiUrl(`/api/products/${id}`));
       setProduct(response.data);
 
       // Fetch related products from the same category
       if (response.data.category) {
         const relatedResponse = await axios.get(
-          `/api/products?category=${encodeURIComponent(
-            response.data.category
-          )}&limit=4`
+          apiUrl(
+            `/api/products?category=${encodeURIComponent(
+              response.data.category
+            )}&limit=4`
+          )
         );
         setRelatedProducts(
           relatedResponse.data.products.filter((p) => p._id !== id)
