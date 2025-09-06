@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, User, Search, Menu, X, Sun, Moon } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { useCart } from '../context/CartContext';
-import { useTheme } from '../context/ThemeContext';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ShoppingCart, User, Search, Menu, X, Sun, Moon } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import { useCart } from "../context/CartContext";
+import { useTheme } from "../context/ThemeContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const { user, logout } = useAuth();
   const { getCartItemsCount } = useCart();
   const { isDark, toggleTheme } = useTheme();
@@ -17,13 +17,13 @@ const Header = () => {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
+      setSearchQuery("");
     }
   };
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -31,15 +31,18 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">F</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">Froxy</span>
+          <Link to="/" className="flex items-center">
+            <img src="/FroxyLogo.png" alt="Froxy Logo" className="w-20 h-20" />
+            <span className="text-xl font-bold text-gray-900 dark:text-white">
+              Froxy
+            </span>
           </Link>
 
           {/* Search Bar - Desktop */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-lg mx-8">
+          <form
+            onSubmit={handleSearch}
+            className="hidden md:flex flex-1 max-w-lg mx-8"
+          >
             <div className="relative w-full">
               <input
                 type="text"
@@ -54,24 +57,34 @@ const Header = () => {
 
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/products" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium">
+            <Link
+              to="/products"
+              className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium"
+            >
               Products
             </Link>
             {user && (
-              <Link to="/orders" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium">
+              <Link
+                to="/orders"
+                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium"
+              >
                 Orders
               </Link>
             )}
-            
+
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
               className="p-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
             >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {isDark ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
             </button>
-            
+
             {user ? (
               <div className="flex items-center space-x-4">
                 <Link
@@ -85,21 +98,21 @@ const Header = () => {
                     </span>
                   )}
                 </Link>
-                
+
                 <div className="relative group">
                   <button className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-primary-600">
                     <User className="h-6 w-6" />
                     <span className="font-medium">{user.name}</span>
-                    {user.role === 'admin' && (
+                    {user.role === "admin" && (
                       <span className="px-2 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full">
                         Admin
                       </span>
                     )}
                   </button>
-                  
+
                   <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div className="py-2">
-                      {user.role === 'admin' && (
+                      {user.role === "admin" && (
                         <Link
                           to="/admin"
                           className="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -131,7 +144,11 @@ const Header = () => {
                   )}
                 </Link>
                 <button
-                  onClick={() => document.getElementById('auth-modal').classList.remove('hidden')}
+                  onClick={() =>
+                    document
+                      .getElementById("auth-modal")
+                      .classList.remove("hidden")
+                  }
                   className="btn-primary"
                 >
                   Login
@@ -145,7 +162,11 @@ const Header = () => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-primary-600"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </button>
         </div>
 
@@ -185,7 +206,7 @@ const Header = () => {
                   Orders
                 </Link>
               )}
-              
+
               {/* Mobile Theme Toggle */}
               <button
                 onClick={() => {
@@ -194,10 +215,14 @@ const Header = () => {
                 }}
                 className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium"
               >
-                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+                {isDark ? (
+                  <Sun className="h-5 w-5" />
+                ) : (
+                  <Moon className="h-5 w-5" />
+                )}
+                <span>{isDark ? "Light Mode" : "Dark Mode"}</span>
               </button>
-              
+
               {user ? (
                 <>
                   <Link
@@ -208,7 +233,7 @@ const Header = () => {
                     <ShoppingCart className="h-5 w-5" />
                     <span>Cart ({getCartItemsCount()})</span>
                   </Link>
-                  {user.role === 'admin' && (
+                  {user.role === "admin" && (
                     <Link
                       to="/admin"
                       className="text-gray-700 dark:text-gray-300 hover:text-primary-600 font-medium"
@@ -230,7 +255,9 @@ const Header = () => {
               ) : (
                 <button
                   onClick={() => {
-                    document.getElementById('auth-modal').classList.remove('hidden');
+                    document
+                      .getElementById("auth-modal")
+                      .classList.remove("hidden");
                     setIsMenuOpen(false);
                   }}
                   className="btn-primary w-full"
