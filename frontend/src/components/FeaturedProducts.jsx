@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import ProductCard from './ProductCard';
-import { ArrowRight } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { apiUrl } from "../utils/api";
+import ProductCard from "./ProductCard";
+import { ArrowRight } from "lucide-react";
 
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
@@ -11,10 +12,12 @@ const FeaturedProducts = () => {
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {
-        const response = await axios.get('/api/products?limit=8&sort=rating');
+        const response = await axios.get(
+          apiUrl("/api/products?limit=8&sort=rating")
+        );
         setProducts(response.data.products);
       } catch (error) {
-        console.error('Error fetching featured products:', error);
+        console.error("Error fetching featured products:", error);
       } finally {
         setLoading(false);
       }
@@ -37,7 +40,10 @@ const FeaturedProducts = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 animate-pulse">
+              <div
+                key={i}
+                className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 animate-pulse"
+              >
                 <div className="w-full h-48 bg-gray-200 rounded-lg mb-4"></div>
                 <div className="h-4 bg-gray-200 rounded mb-2"></div>
                 <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
@@ -77,7 +83,9 @@ const FeaturedProducts = () => {
 
         {products.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-600 text-lg">No products available at the moment.</p>
+            <p className="text-gray-600 text-lg">
+              No products available at the moment.
+            </p>
           </div>
         )}
       </div>
