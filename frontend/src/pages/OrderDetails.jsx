@@ -9,6 +9,7 @@ import {
   XCircle,
 } from "lucide-react";
 import axios from "axios";
+import { apiUrl } from "../utils/api";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
@@ -32,7 +33,7 @@ const OrderDetails = () => {
   const fetchOrder = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`/api/orders/${id}`);
+      const response = await axios.get(apiUrl(`/api/orders/${id}`));
       setOrder(response.data);
     } catch (error) {
       console.error("Error fetching order:", error);
@@ -140,16 +141,19 @@ const OrderDetails = () => {
           <button
             onClick={async () => {
               try {
-                const token = localStorage.getItem('token');
-                const response = await fetch(`/api/orders/${order._id}/invoice`, {
-                  headers: {
-                    Authorization: `Bearer ${token}`
+                const token = localStorage.getItem("token");
+                const response = await fetch(
+                  apiUrl(`/api/orders/${order._id}/invoice`),
+                  {
+                    headers: {
+                      Authorization: `Bearer ${token}`,
+                    },
                   }
-                });
-                if (!response.ok) throw new Error('Failed to download invoice');
+                );
+                if (!response.ok) throw new Error("Failed to download invoice");
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
+                const a = document.createElement("a");
                 a.href = url;
                 a.download = `invoice-${order.orderNumber || order._id}.pdf`;
                 document.body.appendChild(a);
@@ -157,7 +161,7 @@ const OrderDetails = () => {
                 a.remove();
                 window.URL.revokeObjectURL(url);
               } catch (err) {
-                toast.error('Failed to download invoice');
+                toast.error("Failed to download invoice");
               }
             }}
             className={

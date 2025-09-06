@@ -12,6 +12,7 @@ import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import PaymentSuccessAnimation from "../components/PaymentSuccessAnimation";
 import axios from "axios";
+import { apiUrl } from "../utils/api";
 import toast from "react-hot-toast";
 
 const stripePromise = loadStripe(
@@ -35,9 +36,12 @@ const CheckoutForm = ({ orderId, onSuccess }) => {
 
     try {
       // Create payment intent
-      const response = await axios.post("/api/payments/create-payment-intent", {
-        orderId,
-      });
+      const response = await axios.post(
+        apiUrl("/api/payments/create-payment-intent"),
+        {
+          orderId,
+        }
+      );
 
       const { clientSecret } = response.data;
 
@@ -162,7 +166,7 @@ const Checkout = () => {
         paymentMethod: "stripe",
       };
 
-      const response = await axios.post("/api/orders", orderData);
+      const response = await axios.post(apiUrl("/api/orders"), orderData);
       setOrder(response.data);
       toast.success("Order created successfully!");
     } catch (error) {

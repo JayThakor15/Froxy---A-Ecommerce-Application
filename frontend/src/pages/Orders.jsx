@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Package, Clock, CheckCircle, XCircle, Truck } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
+import { apiUrl } from "../utils/api";
 import toast from "react-hot-toast";
 
 const Orders = () => {
@@ -19,7 +20,7 @@ const Orders = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("/api/orders");
+      const response = await axios.get(apiUrl("/api/orders"));
       setOrders(response.data);
     } catch (error) {
       console.error("Error fetching orders:", error);

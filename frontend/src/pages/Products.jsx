@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { apiUrl } from "../utils/api";
 import ProductCard from "../components/ProductCard";
 import { Filter, Grid, List, SlidersHorizontal } from "lucide-react";
 
@@ -66,7 +67,9 @@ const Products = () => {
       params.append("page", currentPage);
       params.append("limit", 12);
 
-      const response = await axios.get(`/api/products?${params.toString()}`);
+      const response = await axios.get(
+        apiUrl(`/api/products?${params.toString()}`)
+      );
       setProducts(response.data.products);
       setTotalPages(response.data.totalPages);
     } catch (error) {
