@@ -4,6 +4,7 @@ import { ArrowLeft, Save, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useAdmin } from '../context/AdminContext';
 import axios from 'axios';
+import { apiUrl } from '../utils/api';
 
 const categories = [
   'Electronics',
@@ -50,7 +51,7 @@ const AdminProductForm = () => {
 
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(`/api/products/${id}`);
+  const response = await axios.get(apiUrl(`/api/products/${id}`));
       const product = response.data;
       setFormData({
         name: product.name,

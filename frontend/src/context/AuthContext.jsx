@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
+import { apiUrl } from '../utils/api';
 import toast from 'react-hot-toast';
 
 const AuthContext = createContext();
@@ -69,7 +70,7 @@ export const AuthProvider = ({ children }) => {
     const loadUser = async () => {
       if (state.token) {
         try {
-          const res = await axios.get('/api/auth/me');
+          const res = await axios.get(apiUrl('/api/auth/me'));
           dispatch({
             type: 'AUTH_SUCCESS',
             payload: { user: res.data, token: state.token }
@@ -89,7 +90,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       dispatch({ type: 'AUTH_START' });
-      const res = await axios.post('/api/auth/register', userData);
+  const res = await axios.post(apiUrl('/api/auth/register'), userData);
       
       localStorage.setItem('token', res.data.token);
       dispatch({
@@ -110,7 +111,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (userData) => {
     try {
       dispatch({ type: 'AUTH_START' });
-      const res = await axios.post('/api/auth/login', userData);
+  const res = await axios.post(apiUrl('/api/auth/login'), userData);
       
       localStorage.setItem('token', res.data.token);
       dispatch({
