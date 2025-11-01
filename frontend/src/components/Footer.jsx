@@ -15,7 +15,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 dark:bg-gray-950 text-white">
+    <footer className="bg-primary-800 dark:bg-primary-900 text-white">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -23,12 +23,13 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <img
-                src="/FroxyLogo.png"
-                alt="Froxy Logo"
-                className="w-8 h-8 rounded-lg object-contain bg-white p-1"
-                style={{ background: "white" }}
+                src="/Products/Logo.jpg"
+                alt="Ram Vatika Logo"
+                className="w-10 h-10 rounded-lg object-contain"
               />
-              <span className="text-xl font-bold">Froxy</span>
+              <span className="text-xl font-bold text-primary-500">
+                Ram Vatika
+              </span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
               Your one-stop destination for quality products at great prices.
@@ -64,41 +65,41 @@ const Footer = () => {
               <li>
                 <Link
                   to="/products"
-                  className="text-gray-400 hover:text-white transition-colors text-sm"
+                  className="text-gray-300 hover:text-accent-400 transition-colors text-sm"
                 >
                   All Products
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/products?category=Electronics"
-                  className="text-gray-400 hover:text-white transition-colors text-sm"
+                  to="/products?category=Women%27s%20Perfume"
+                  className="text-gray-300 hover:text-accent-400 transition-colors text-sm"
                 >
-                  Electronics
+                  Women's Perfume
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/products?category=Clothing"
-                  className="text-gray-400 hover:text-white transition-colors text-sm"
+                  to="/products?category=Men%27s%20Cologne"
+                  className="text-gray-300 hover:text-accent-400 transition-colors text-sm"
                 >
-                  Clothing
+                  Men's Cologne
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/products?category=Books"
+                  to="/products?category=Unisex"
                   className="text-gray-400 hover:text-white transition-colors text-sm"
                 >
-                  Books
+                  Unisex
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/products?category=Sports"
+                  to="/products?category=Luxury"
                   className="text-gray-400 hover:text-white transition-colors text-sm"
                 >
-                  Sports
+                  Luxury
                 </Link>
               </li>
             </ul>
@@ -169,7 +170,9 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-primary-400" />
-                <span className="text-gray-400 text-sm">support@froxy.com</span>
+                <span className="text-gray-400 text-sm">
+                  support@ramvatika.com
+                </span>
               </div>
             </div>
           </div>

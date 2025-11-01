@@ -32,9 +32,13 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src="/FroxyLogo.png" alt="Froxy Logo" className="w-20 h-20" />
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
-              Froxy
+            <img
+              src="/Products/Logo.jpg"
+              alt="Ram Vatika Logo"
+              className="w-18 h-10 object-contain"
+            />
+            <span className="text-xl font-bold text-primary-600 dark:text-white ml-3">
+              Ram Vatika
             </span>
           </Link>
 

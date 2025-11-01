@@ -7,14 +7,14 @@ import { Filter, Grid, List, SlidersHorizontal } from "lucide-react";
 
 const categories = [
   "All",
-  "Electronics",
-  "Clothing",
-  "Books",
-  "Home & Garden",
-  "Sports",
-  "Beauty",
-  "Toys",
-  "Automotive",
+  "Women's Perfume",
+  "Men's Cologne",
+  "Unisex",
+  "Luxury",
+  "Home Fragrance",
+  "Gift Set",
+  "Travel Set",
+  "New Arrivals",
 ];
 
 const sortOptions = [

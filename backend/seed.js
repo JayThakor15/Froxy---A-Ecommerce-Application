@@ -5,148 +5,181 @@ require("dotenv").config();
 
 const sampleProducts = [
   {
-    name: "iPhone 15 Pro",
+    name: "Kesar Chandan (30ml)",
     description:
-      "The latest iPhone with advanced camera system, A17 Pro chip, and titanium design. Features a 6.1-inch Super Retina XDR display with ProMotion technology.",
-    price: 999,
-    category: "Electronics",
-    image:
-      "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    stock: 50,
-    rating: 4.8,
-    numReviews: 1250,
-  },
-  {
-    name: "MacBook Pro 16-inch",
-    description:
-      "Powerful laptop with M3 Pro chip, 16-inch Liquid Retina XDR display, and all-day battery life. Perfect for professionals and creatives.",
-    price: 2499,
-    category: "Electronics",
-    image:
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    stock: 25,
-    rating: 4.9,
-    numReviews: 890,
-  },
-  {
-    name: "Nike Air Max 270",
-    description:
-      "Comfortable running shoes with Max Air cushioning and breathable mesh upper. Perfect for daily wear and light exercise.",
-    price: 150,
-    category: "Clothing",
-    image:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    stock: 100,
-    rating: 4.5,
-    numReviews: 320,
-  },
-  {
-    name: "Levi's 501 Original Jeans",
-    description:
-      "Classic straight-fit jeans made from 100% cotton denim. Timeless style that never goes out of fashion.",
-    price: 89,
-    category: "Clothing",
-    image:
-      "https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    stock: 75,
-    rating: 4.3,
-    numReviews: 180,
-  },
-  {
-    name: "The Great Gatsby",
-    description:
-      "F. Scott Fitzgerald's masterpiece about the Jazz Age. A timeless classic that explores themes of wealth, love, and the American Dream.",
-    price: 12,
-    category: "Books",
-    image:
-      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    stock: 200,
-    rating: 4.7,
-    numReviews: 450,
-  },
-  {
-    name: "Atomic Habits",
-    description:
-      "James Clear's guide to building good habits and breaking bad ones. A practical framework for improving your life one small step at a time.",
-    price: 18,
-    category: "Books",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    stock: 150,
-    rating: 4.6,
-    numReviews: 280,
-  },
-  {
-    name: "Philips Hue Smart Bulb",
-    description:
-      "Smart LED bulb that can change colors and be controlled via smartphone app. Compatible with Alexa and Google Assistant.",
-    price: 45,
-    category: "Home & Garden",
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      "Warm saffron and creamy sandalwood - Kesar Chandan in a 30ml bottle.",
+    price: 349,
+    category: "Women's Perfume",
+    image: "/Products/Kesar%20Chandan.jpg",
     stock: 80,
-    rating: 4.4,
-    numReviews: 120,
+    rating: 4.7,
+    numReviews: 64,
   },
   {
-    name: "Yoga Mat Premium",
+    name: "Rose (30ml)",
     description:
-      "Non-slip yoga mat made from eco-friendly materials. Perfect for yoga, pilates, and other fitness activities.",
-    price: 35,
-    category: "Sports",
-    image:
-      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      "A classic rosy bouquet with soft musk — elegant and long-lasting.",
+    price: 299,
+    category: "Women's Perfume",
+    image: "/Products/Rose.jpg",
+    stock: 120,
+    rating: 4.6,
+    numReviews: 118,
+  },
+  {
+    name: "Burberry Weekend (30ml)",
+    description: "A fresh, breezy daytime scent with citrus and green accords.",
+    price: 549,
+    category: "Unisex",
+    image: "/Products/Burberry%20Weekends.jpg",
     stock: 60,
     rating: 4.5,
-    numReviews: 95,
+    numReviews: 42,
   },
   {
-    name: "Dumbbell Set 20lbs",
+    name: "Blueberry (30ml)",
     description:
-      "Adjustable dumbbell set perfect for home workouts. Includes multiple weight plates and comfortable grips.",
-    price: 89,
-    category: "Sports",
-    image:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    stock: 40,
-    rating: 4.2,
-    numReviews: 75,
-  },
-  {
-    name: "Skincare Set",
-    description:
-      "Complete skincare routine with cleanser, toner, and moisturizer. Made with natural ingredients for all skin types.",
-    price: 65,
-    category: "Beauty",
-    image:
-      "https://images.unsplash.com/photo-1556228720-195a672e8a03?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+      "Fruity blueberry top notes balanced with a soft floral heart.",
+    price: 279,
+    category: "Women's Perfume",
+    image: "/Products/BLueberry.jpg",
     stock: 90,
-    rating: 4.6,
-    numReviews: 140,
+    rating: 4.4,
+    numReviews: 27,
   },
   {
-    name: "LEGO Creator Set",
+    name: "Sabaya (30ml)",
     description:
-      "Build and rebuild three different models with this creative LEGO set. Perfect for kids and adults who love building.",
-    price: 55,
-    category: "Toys",
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-    stock: 120,
-    rating: 4.8,
-    numReviews: 200,
+      "Oriental floral with rich amber and vanilla — sensual and warm.",
+    price: 699,
+    category: "Luxury",
+    image: "/Products/Sabaya.jpg",
+    stock: 35,
+    rating: 4.85,
+    numReviews: 51,
   },
   {
-    name: "Car Phone Mount",
-    description:
-      "Magnetic phone mount for your car dashboard. Strong magnetic hold with 360-degree rotation and easy installation.",
-    price: 25,
-    category: "Automotive",
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    name: "Mogra (30ml)",
+    description: "Pure mogra (jasmine) heart — bright, floral and timeless.",
+    price: 329,
+    category: "Women's Perfume",
+    image: "/Products/Mogra.jpg",
     stock: 110,
+    rating: 4.6,
+    numReviews: 73,
+  },
+  {
+    name: "Blue Lady (30ml)",
+    description: "A modern feminine scent with marine and floral touches.",
+    price: 379,
+    category: "Women's Perfume",
+    image: "/Products/Blue%20Lady.jpg",
+    stock: 55,
+    rating: 4.5,
+    numReviews: 21,
+  },
+  {
+    name: "24 Carat (30ml)",
+    description: "Opulent golden accord with saffron, oud and a velvety base.",
+    price: 999,
+    category: "Luxury",
+    image: "/Products/24%20Carat.jpg",
+    stock: 18,
+    rating: 4.95,
+    numReviews: 39,
+  },
+  {
+    name: "Russia (30ml)",
+    description: "A deep, woody oriental with smoky oud and leather nuances.",
+    price: 799,
+    category: "Luxury",
+    image: "/Products/Rusia.jpg",
+    stock: 28,
+    rating: 4.8,
+    numReviews: 46,
+  },
+  {
+    name: "Lacoste White (30ml)",
+    description: "Clean, sporty and airy — a crisp casual fragrance.",
+    price: 499,
+    category: "Unisex",
+    image: "/Products/Lacoste%20White.jpg",
+    stock: 95,
+    rating: 4.4,
+    numReviews: 54,
+  },
+  {
+    name: "Hot Oudh (30ml)",
+    description: "A powerfully resinous oudh with spicy and smoky facets.",
+    price: 649,
+    category: "Luxury",
+    image: "/Products/Hot%20Oudh.jpg",
+    stock: 40,
+    rating: 4.7,
+    numReviews: 61,
+  },
+  {
+    name: "Vanity Femme Celebration (30ml)",
+    description:
+      "Festive floral gourmand designed for celebrations and nights out.",
+    price: 579,
+    category: "Women's Perfume",
+    image: "/Products/Vanity%20Femme.jpg",
+    stock: 44,
+    rating: 4.6,
+    numReviews: 29,
+  },
+  {
+    name: "Signature Oudh (30ml)",
+    description: "A signature oud blend with creamy woods and a warm finish.",
+    price: 899,
+    category: "Luxury",
+    image: "/Products/Signature%20oudh.jpg",
+    stock: 22,
+    rating: 4.9,
+    numReviews: 68,
+  },
+  {
+    name: "Rida Diamond (30ml)",
+    description: "A sparkling floral gourmand with creamy vanilla and almond.",
+    price: 749,
+    category: "Luxury",
+    image: "/Products/Rida%20Daimond.jpg",
+    stock: 26,
+    rating: 4.8,
+    numReviews: 33,
+  },
+  {
+    name: "Japanese Cherry (30ml)",
+    description:
+      "Cherry blossom inspired — soft, airy and evocative of spring.",
+    price: 319,
+    category: "Women's Perfume",
+    image: "/Products/Japanse%20Cherry.jpg",
+    stock: 88,
+    rating: 4.5,
+    numReviews: 17,
+  },
+  {
+    name: "Peach (30ml)",
+    description:
+      "Juicy peach top notes with a soft musky base — playful and fresh.",
+    price: 249,
+    category: "Women's Perfume",
+    image: "/Products/Peach.jpg",
+    stock: 130,
     rating: 4.3,
-    numReviews: 85,
+    numReviews: 22,
+  },
+  {
+    name: "Purple Oudh (30ml)",
+    description: "A modern oudh with floral top notes and a rich woody base.",
+    price: 599,
+    category: "Luxury",
+    image: "/Products/Purple%20Oudh.jpg",
+    stock: 48,
+    rating: 4.6,
+    numReviews: 38,
   },
 ];
 
@@ -166,19 +199,19 @@ const seedDatabase = async () => {
     // Create admin user
     const adminUser = new User({
       name: "Admin User",
-      email: "admin@froxy.com",
+      email: "admin@ramvatika.com",
       password: "admin123",
       role: "admin",
     });
     await adminUser.save();
-    console.log("Created admin user (admin@froxy.com / admin123)");
+    console.log("Created admin user (admin@ramvatika.com / admin123)");
 
     // Insert sample products
     await Product.insertMany(sampleProducts);
     console.log("Inserted sample products");
 
     console.log("Database seeded successfully!");
-    console.log("Admin credentials: admin@froxy.com / admin123");
+    console.log("Admin credentials: admin@ramvatika.com / admin123");
     process.exit(0);
   } catch (error) {
     console.error("Error seeding database:", error);

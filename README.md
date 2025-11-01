@@ -1,4 +1,4 @@
-# Froxy - Professional E-commerce Application
+# AromaLux - Premium Perfume Store
 
 A modern, full-stack single page e-commerce application built with React, Node.js, Express, and MongoDB.
 
@@ -126,7 +126,7 @@ A modern, full-stack single page e-commerce application built with React, Node.j
    This will create:
 
    - Sample products
-   - Admin user: `admin@froxy.com` / `admin123`
+     - Admin user: `admin@aromalux.com` / `admin123`
 
 7. **Start the backend server**
 

@@ -1,66 +1,76 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  Smartphone, 
-  Shirt, 
-  BookOpen, 
-  Home, 
-  Dumbbell, 
-  Heart, 
-  Gamepad2, 
-  Car 
-} from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+// removed unused lucide import
 
 const categories = [
   {
-    name: 'Electronics',
-    icon: Smartphone,
-    color: 'bg-blue-100 text-blue-600',
-    href: '/products?category=Electronics'
+    name: "Women's Perfume",
+    color: "bg-primary-50 text-primary-700",
+    image: "Women.png",
+    href: "/products?category=Women%27s%20Perfume",
   },
   {
-    name: 'Clothing',
-    icon: Shirt,
-    color: 'bg-pink-100 text-pink-600',
-    href: '/products?category=Clothing'
+    name: "Men's Cologne",
+    color: "bg-primary-100 text-primary-800",
+    image: "Men.png",
+    href: "/products?category=Men%27s%20Cologne",
   },
   {
-    name: 'Books',
-    icon: BookOpen,
-    color: 'bg-green-100 text-green-600',
-    href: '/products?category=Books'
+    name: "Unisex",
+    color: "bg-gold-50 text-gold-700",
+    image: "Unisex.png",
+    href: "/products?category=Unisex",
   },
   {
-    name: 'Home & Garden',
-    icon: Home,
-    color: 'bg-yellow-100 text-yellow-600',
-    href: '/products?category=Home & Garden'
+    name: "Luxury",
+    color: "bg-gold-100 text-gold-800",
+    image: "Gift.png",
+    href: "/products?category=Luxury",
   },
   {
-    name: 'Sports',
-    icon: Dumbbell,
-    color: 'bg-red-100 text-red-600',
-    href: '/products?category=Sports'
+    name: "Home Fragrance",
+    color: "bg-primary-50 text-primary-700",
+    image: "Home.png",
+    href: "/products?category=Home%20Fragrance",
   },
   {
-    name: 'Beauty',
-    icon: Heart,
-    color: 'bg-purple-100 text-purple-600',
-    href: '/products?category=Beauty'
+    name: "Gift Sets",
+    color: "bg-gold-50 text-gold-800",
+    image: "Gift.png",
+    href: "/products?category=Gift%20Set",
   },
   {
-    name: 'Toys',
-    icon: Gamepad2,
-    color: 'bg-orange-100 text-orange-600',
-    href: '/products?category=Toys'
+    name: "Travel Sprays",
+    color: "bg-richBlack-100 text-richBlack-800",
+    image: "Travel.png",
+    href: "/products?category=Travel%20Set",
   },
   {
-    name: 'Automotive',
-    icon: Car,
-    color: 'bg-gray-100 text-gray-600',
-    href: '/products?category=Automotive'
-  }
+    name: "New Arrivals",
+    color: "bg-primary-200 text-primary-800",
+    image: "New.png",
+    href: "/products?category=New%20Arrivals",
+  },
 ];
+
+// Simple perfume bottle SVG used as category logo — uses currentColor for flexible tinting
+const PerfumeIcon = ({ className = "h-8 w-8" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden="true"
+  >
+    <rect x="7" y="7" width="10" height="11" rx="2" />
+    <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+    <path d="M12 18v1" />
+  </svg>
+);
 
 const CategorySection = () => {
   return (
@@ -71,21 +81,30 @@ const CategorySection = () => {
             Shop by Category
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover products from our wide range of categories, carefully curated for your needs
+            Discover products from our wide range of categories, carefully
+            curated for your needs
           </p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
           {categories.map((category) => {
-            const IconComponent = category.icon;
             return (
               <Link
                 key={category.name}
                 to={category.href}
                 className="group flex flex-col items-center p-6 rounded-xl border border-gray-200 hover:border-primary-300 hover:shadow-lg transition-all duration-200 bg-white"
               >
-                <div className={`w-16 h-16 rounded-full ${category.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200`}>
-                  <IconComponent className="h-8 w-8" />
+                <div
+                  className={`w-16 h-16 rounded-full ${category.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200`}
+                >
+                  {/* Inner fixed box ensures all logos render at the same visible size */}
+                  <div className="w-10 h-10 flex items-center justify-center">
+                    <img
+                      src={`/Catagory/${category.image}`}
+                      alt={`${category.name} logo`}
+                      className="max-w-full max-h-full"
+                    />
+                  </div>
                 </div>
                 <span className="text-sm font-medium text-gray-900 text-center group-hover:text-primary-600 transition-colors">
                   {category.name}

@@ -1,4 +1,6 @@
 const PDFDocument = require("pdfkit");
+const path = require("path");
+const fs = require("fs");
 const Order = require("../models/Order");
 const User = require("../models/User");
 
@@ -21,18 +23,50 @@ async function generateInvoice(req, res) {
     const doc = new PDFDocument({ margin: 40 });
     doc.pipe(res);
 
-    // Header with color
-    doc.rect(0, 0, doc.page.width, 60).fill("#2563eb");
+    // Brand colors
+    const NAVY = "#3560b2"; // primary
+    const PINK = "#ff4aa3"; // accent
+
+    // Header bar
+    doc.rect(0, 0, doc.page.width, 80).fill(NAVY);
+
+    // Try to load the logo from frontend public folder. Use an absolute path so server-side PDF generation can read it.
+    const logoPath = path.resolve(
+      __dirname,
+      "..",
+      "..",
+      "frontend",
+      "public",
+      "Products",
+      "Logo.jpg"
+    );
+    if (fs.existsSync(logoPath)) {
+      try {
+        doc.image(logoPath, 40, 12, { width: 80 });
+      } catch (err) {
+        // ignore image errors and continue
+        console.warn("Could not load logo for invoice PDF:", err.message);
+      }
+    }
+
+    // Brand name and tagline in header
     doc
       .fillColor("white")
-      .fontSize(28)
+      .fontSize(22)
       .font("Helvetica-Bold")
-      .text("Froxy", 40, 18, { align: "left", continued: false });
+      .text("Ram Vatika", 140, 22, { align: "left" });
+
+    doc
+      .fontSize(10)
+      .font("Helvetica")
+      .fillColor("white")
+      .text("Love at First Smell", 140, 48, { align: "left" });
+
     doc.moveDown(2);
     doc.fillColor("black").font("Helvetica");
 
     // Invoice title and meta
-    doc.fontSize(20).text("INVOICE", { align: "right" });
+    doc.fontSize(20).fillColor(NAVY).text("INVOICE", { align: "right" });
     doc.moveDown(0.5);
     doc.fontSize(12).text(`Order Number: ${order.orderNumber || order._id}`, {
       align: "right",
@@ -150,12 +184,12 @@ async function generateInvoice(req, res) {
     doc
       .font("Helvetica-Bold")
       .fontSize(14)
-      .fillColor("#2563eb")
+      .fillColor(PINK)
       .text("Total", priceX, y, { width: 60, align: "right" });
     doc
       .font("Helvetica-Bold")
       .fontSize(14)
-      .fillColor("#2563eb")
+      .fillColor(PINK)
       .text(`$${order.totalPrice.toFixed(2)}`, totalX, y, {
         width: 80,
         align: "right",
@@ -171,7 +205,7 @@ async function generateInvoice(req, res) {
     doc
       .fontSize(10)
       .fillColor("#94a3b8")
-      .text("For support, contact support@froxy.com", { align: "center" });
+      .text("For support, contact support@ramvatika.com", { align: "center" });
     doc.end();
   } catch (error) {
     console.error("Invoice generation error:", error);

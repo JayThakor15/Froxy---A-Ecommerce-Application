@@ -4,6 +4,8 @@ const { protect } = require("../middleware/auth");
 const Order = require("../models/Order");
 const User = require("../models/User");
 const emailService = require("../services/emailService");
+const fs = require("fs");
+const path = require("path");
 
 const router = express.Router();
 
@@ -64,8 +66,8 @@ router.post("/create-payment-intent", protect, async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(order.totalPrice * 100), // Convert to cents
       currency: "usd",
-      description: `E-commerce purchase - Order #${order.orderNumber}`,
-      statement_descriptor: "FROXY",
+      description: `Ram Vatika purchase - Order #${order.orderNumber}`,
+      statement_descriptor: "RAMVATIKA",
       customer: customer ? customer.id : undefined,
       shipping: {
         name: order.user.name,
@@ -172,18 +174,41 @@ const handlePaymentSuccess = async (paymentIntent) => {
       // Send order confirmation email with invoice PDF
       try {
         const pdfBuffer = await emailService.generateInvoicePDF(order);
+
+        // Prepare attachments (pdf + inline logo if available)
+        const attachments = [
+          {
+            filename: `invoice-${order.orderNumber || order._id}.pdf`,
+            content: pdfBuffer,
+            contentType: "application/pdf",
+          },
+        ];
+        const logoPath = path.resolve(
+          __dirname,
+          "..",
+          "..",
+          "frontend",
+          "public",
+          "Products",
+          "Logo.jpg"
+        );
+        if (fs.existsSync(logoPath)) {
+          attachments.push({
+            filename: "logo.jpg",
+            path: logoPath,
+            cid: "ramvatika-logo",
+          });
+        }
+
         await emailService.transporter.sendMail({
           from: process.env.EMAIL_USER,
           to: order.user.email,
-          subject: `Your Froxy Order Confirmation (#${order.orderNumber})`,
-          html: emailService.generateInvoiceHTML(order),
-          attachments: [
-            {
-              filename: `invoice-${order.orderNumber || order._id}.pdf`,
-              content: pdfBuffer,
-              contentType: "application/pdf",
-            },
-          ],
+          subject: `Your Ram Vatika Order Confirmation (#${order.orderNumber})`,
+          html: emailService.generateEmailTemplate(
+            order,
+            fs.existsSync(logoPath) ? "cid:ramvatika-logo" : null
+          ),
+          attachments,
         });
         console.log(`Order confirmation email sent to ${order.user.email}`);
       } catch (emailErr) {
